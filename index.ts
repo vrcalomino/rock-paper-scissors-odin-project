@@ -14,7 +14,6 @@ const playRound = (
   playerSelection: string,
   computerSelection: string
 ): WINNER => {
-  console.log(playerSelection, computerSelection);
   const playerSelectionFinal: string = playerSelection.toLowerCase();
   if (playerSelectionFinal === ROCK && computerSelection === SCISSORS) {
     return "player";
@@ -58,5 +57,3 @@ const game = (): WINNER => {
     return "tie";
   }
 };
-
-console.log(game());
