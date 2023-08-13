@@ -8,27 +8,56 @@ var getComputerChoice = function () {
 };
 var playRound = function (playerSelection, computerSelection) {
     console.log(playerSelection, computerSelection);
-    if (playerSelection === ROCK && computerSelection === SCISSORS) {
-        return "You won! ".concat(ROCK.charAt(0).toUpperCase()).concat(ROCK.slice(1), " beats ").concat(SCISSORS.charAt(0).toUpperCase()).concat(SCISSORS.slice(1));
+    var playerSelectionFinal = playerSelection.toLowerCase();
+    if (playerSelectionFinal === ROCK && computerSelection === SCISSORS) {
+        return "player";
     }
-    else if (playerSelection === ROCK && computerSelection === PAPER) {
-        return "You lose! ".concat(ROCK.charAt(0).toUpperCase()).concat(ROCK.slice(1), " loses to ").concat(PAPER.charAt(0).toUpperCase()).concat(PAPER.slice(1));
+    else if (playerSelectionFinal === ROCK && computerSelection === PAPER) {
+        return "computer";
     }
-    else if (playerSelection === PAPER && computerSelection === ROCK) {
-        return "You won! ".concat(PAPER.charAt(0).toUpperCase()).concat(PAPER.slice(1), " beats ").concat(ROCK.charAt(0).toUpperCase()).concat(ROCK.slice(1));
+    else if (playerSelectionFinal === PAPER && computerSelection === ROCK) {
+        return "player";
     }
-    else if (playerSelection === PAPER && computerSelection === SCISSORS) {
-        return "You lose! ".concat(PAPER.charAt(0).toUpperCase()).concat(PAPER.slice(1), " loses to ").concat(SCISSORS.charAt(0).toUpperCase()).concat(SCISSORS.slice(1));
+    else if (playerSelectionFinal === PAPER && computerSelection === SCISSORS) {
+        return "computer";
     }
-    else if (playerSelection === SCISSORS && computerSelection === PAPER) {
-        return "You won! ".concat(SCISSORS.charAt(0).toUpperCase()).concat(SCISSORS.slice(1), " beats ").concat(PAPER.charAt(0).toUpperCase()).concat(PAPER.slice(1));
+    else if (playerSelectionFinal === SCISSORS && computerSelection === PAPER) {
+        return "player";
     }
-    else if (playerSelection === SCISSORS && computerSelection === ROCK) {
-        return "You lose! ".concat(SCISSORS.charAt(0).toUpperCase()).concat(SCISSORS.slice(1), " loses to ").concat(ROCK.charAt(0).toUpperCase()).concat(ROCK.slice(1));
+    else if (playerSelectionFinal === SCISSORS && computerSelection === ROCK) {
+        return "computer";
     }
     else {
-        return "It's a tie!";
+        return "tie";
     }
 };
-var comp = getComputerChoice();
-console.log(playRound(ROCK, comp));
+var game = function () {
+    var playerScore = 0;
+    var computerScore = 0;
+    var userSelection = "";
+    for (var i = 0; i < 5; i++) {
+        userSelection = prompt("Enter your selection: ");
+        if (!userSelection) {
+            continue;
+        }
+        if (playRound(userSelection, getComputerChoice()) === "player") {
+            playerScore += 1;
+        }
+        else if (playRound(userSelection, getComputerChoice()) === "computer") {
+            computerScore += 1;
+        }
+        else {
+            continue;
+        }
+    }
+    if (playerScore > computerScore) {
+        return "player";
+    }
+    else if (playerScore < computerScore) {
+        return "computer";
+    }
+    else {
+        return "tie";
+    }
+};
+console.log(game());

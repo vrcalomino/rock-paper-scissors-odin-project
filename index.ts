@@ -1,3 +1,5 @@
+type WINNER = "player" | "computer" | "tie";
+
 const ROCK = "rock";
 const PAPER = "paper";
 const SCISSORS = "scissors";
@@ -11,37 +13,50 @@ const getComputerChoice = (): string => {
 const playRound = (
   playerSelection: string,
   computerSelection: string
-): string => {
+): WINNER => {
   console.log(playerSelection, computerSelection);
   const playerSelectionFinal: string = playerSelection.toLowerCase();
   if (playerSelectionFinal === ROCK && computerSelection === SCISSORS) {
-    return `You won! ${ROCK.charAt(0).toUpperCase()}${ROCK.slice(
-      1
-    )} beats ${SCISSORS.charAt(0).toUpperCase()}${SCISSORS.slice(1)}`;
+    return "player";
   } else if (playerSelectionFinal === ROCK && computerSelection === PAPER) {
-    return `You lose! ${ROCK.charAt(0).toUpperCase()}${ROCK.slice(
-      1
-    )} loses to ${PAPER.charAt(0).toUpperCase()}${PAPER.slice(1)}`;
+    return "computer";
   } else if (playerSelectionFinal === PAPER && computerSelection === ROCK) {
-    return `You won! ${PAPER.charAt(0).toUpperCase()}${PAPER.slice(
-      1
-    )} beats ${ROCK.charAt(0).toUpperCase()}${ROCK.slice(1)}`;
+    return "player";
   } else if (playerSelectionFinal === PAPER && computerSelection === SCISSORS) {
-    return `You lose! ${PAPER.charAt(0).toUpperCase()}${PAPER.slice(
-      1
-    )} loses to ${SCISSORS.charAt(0).toUpperCase()}${SCISSORS.slice(1)}`;
+    return "computer";
   } else if (playerSelectionFinal === SCISSORS && computerSelection === PAPER) {
-    return `You won! ${SCISSORS.charAt(0).toUpperCase()}${SCISSORS.slice(
-      1
-    )} beats ${PAPER.charAt(0).toUpperCase()}${PAPER.slice(1)}`;
+    return "player";
   } else if (playerSelectionFinal === SCISSORS && computerSelection === ROCK) {
-    return `You lose! ${SCISSORS.charAt(0).toUpperCase()}${SCISSORS.slice(
-      1
-    )} loses to ${ROCK.charAt(0).toUpperCase()}${ROCK.slice(1)}`;
+    return "computer";
   } else {
-    return "It's a tie!";
+    return "tie";
   }
 };
 
-const comp: string = getComputerChoice();
-console.log(playRound(ROCK, comp));
+const game = (): WINNER => {
+  let playerScore: number = 0;
+  let computerScore: number = 0;
+  let userSelection: string | null = "";
+  for (let i = 0; i < 5; i++) {
+    userSelection = prompt("Enter your selection: ");
+    if (!userSelection) {
+      continue;
+    }
+    if (playRound(userSelection, getComputerChoice()) === "player") {
+      playerScore += 1;
+    } else if (playRound(userSelection, getComputerChoice()) === "computer") {
+      computerScore += 1;
+    } else {
+      continue;
+    }
+  }
+  if (playerScore > computerScore) {
+    return "player";
+  } else if (playerScore < computerScore) {
+    return "computer";
+  } else {
+    return "tie";
+  }
+};
+
+console.log(game());
